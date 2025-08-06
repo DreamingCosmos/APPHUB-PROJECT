@@ -18,43 +18,21 @@
   <link rel="stylesheet" href="index.css" />
 </head>
 <body>
-
+  <script src="https://js.puter.com/v2/"></script>
   <header>
     <div class="logo">
       <img src="logo.jpg" alt="App Hub Logo">
     </div>
-
-    <div class="search-login-container" style="margin-left:auto; display:flex; align-items:center; gap:12px;">
-      <input
-        type="text"
-        id="searchBar"
-        class="search-bar"
-        placeholder="Search apps…"
-        style="padding:8px 10px; border-radius:30px; border:none; font-size:14px;"
-        oninput="searchApps()"
-      />
-       <a href="login.html" class="login-button">🔐 AppHub Account</a>
-       <script>
-  document.addEventListener("click", function (e) {
-    const target = e.target.closest("a"); // Find the nearest <a> tag clicked
-
-    if (target && target.href.startsWith("http")) {
-      if (localStorage.getItem("isLoggedIn") !== "true") {
-        e.preventDefault(); // Block navigation
-        alert("Please log in to launch apps.");
-        window.location.href = "login.html";
-      }
-    }
-  });
-</script>
-
-       
-
-      <a href="login.html" class="login-link" title="Login">
-        <i class="fa-solid fa-user login-icon"></i>
-      </a>
-    </div>
-    
+    <button id="sign-in">Sign in</button>
+    <script>
+        // Because signIn() opens a popup window, it must be called from a user action.
+        document.getElementById('sign-in').addEventListener('click', async () => {
+            // signIn() will resolve when the user has signed in.
+            await puter.auth.signIn().then((res) => {
+                puter.print('Signed in<br>' + JSON.stringify(res));
+            });
+        });
+    </script>
     <nav class="category-nav">
       <ul>
         <li><a href="#" onclick="filterApps('all')">All</a></li>
@@ -255,3 +233,4 @@
 
 </body>
 </html>
+
